@@ -58,6 +58,15 @@ class GodotAndroidPlugin(godot: Godot): GodotPlugin(godot) {
                     AppUpdateOptions.newBuilder(AppUpdateType.IMMEDIATE).build())
             }
 
+            if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADING) {
+                val bytesDownloaded = appUpdateInfo.bytesDownloaded()
+                val totalBytesToDownload = appUpdateInfo.totalBytesToDownload()
+                emitSignal(
+                    updateDownloadStatusUpdated.name,
+                    bytesDownloaded.toFloat() / totalBytesToDownload
+                )
+            }
+
             if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
                 emitSignal(
                     updateReady.name

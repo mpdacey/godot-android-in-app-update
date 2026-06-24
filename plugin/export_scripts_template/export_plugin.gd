@@ -9,12 +9,24 @@ func _enter_tree():
 	export_plugin = AndroidExportPlugin.new()
 	add_export_plugin(export_plugin)
 
-
 func _exit_tree():
 	# Clean-up of the plugin goes here.
 	remove_export_plugin(export_plugin)
 	export_plugin = null
 
+func _notification(what) -> void:
+	if not Engine.has_singleton("GodotAndroidInAppUpdate"):
+		return
+
+	var singleton = Engine.get_singleton("GodotAndroidInAppUpdate")
+
+	match what:
+		NOTIFICATION_APPLICATION_FOCUS_IN:
+			singleton.appReopened()
+			print("NOTIFICATION_APPLICATION_FOCUS_IN")
+		NOTIFICATION_APPLICATION_RESUMED:
+			singleton.appReopened()
+			print("NOTIFICATION_APPLICATION_RESUMED")
 
 class AndroidExportPlugin extends EditorExportPlugin:
 	# TODO: Update to your plugin's name.
