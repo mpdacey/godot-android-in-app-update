@@ -7,10 +7,10 @@ plugins {
 }
 
 // TODO: Update value to your plugin's name.
-val pluginName = "GodotAndroidPluginTemplate"
+val pluginName = "GodotAndroidInAppUpdate"
 
 // TODO: Update value to match your plugin's package name.
-val pluginPackageName = "org.godotengine.plugin.android.template"
+val pluginPackageName = "com.mpdacey.android.inappupdate"
 
 android {
     namespace = pluginPackageName
@@ -43,6 +43,9 @@ android {
 dependencies {
     implementation("org.godotengine:godot:4.5.1.stable")
     // TODO: Additional dependencies should be added to export_plugin.gd as well.
+    implementation("com.google.android.play:app-update:2.1.0")
+    implementation("com.google.android.play:app-update-ktx:2.1.0")
+    implementation("com.google.android.material:material:1.14.0")
 }
 
 // BUILD TASKS DEFINITION
