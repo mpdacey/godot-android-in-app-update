@@ -6,6 +6,10 @@ signal update_ready
 signal update_failed(error_message: String, error_code: int)
 signal update_download_status_updated(data_downloaded_ratio: float)
 
+var update_is_ready : bool:
+	get:
+		return _update_is_ready
+
 var _in_app_update_singleton
 var _update_is_ready : bool = false
 
