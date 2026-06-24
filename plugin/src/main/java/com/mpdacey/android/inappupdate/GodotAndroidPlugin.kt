@@ -139,7 +139,7 @@ class GodotAndroidPlugin(godot: Godot): GodotPlugin(godot) {
     fun setImmediateUpdate() {
         installListener = InstallStateUpdatedListener { state ->
             if (state.installStatus() == InstallStatus.DOWNLOADED) {
-                appUpdateManager.completeUpdate()
+                installUpdate()
             }
         }
 
@@ -186,6 +186,7 @@ class GodotAndroidPlugin(godot: Godot): GodotPlugin(godot) {
                 emitSignal(
                     updateReady.name
                 )
+                appUpdateManager.unregisterListener(installListener)
             }
         }
 
@@ -202,7 +203,11 @@ class GodotAndroidPlugin(godot: Godot): GodotPlugin(godot) {
                 )
             }
         }
+    }
 
+    @UsedByGodot
+    fun installUpdate() {
+        appUpdateManager.completeUpdate()
     }
 
     // This function will not work. It either does nothing or crashes. Feels bad man.
